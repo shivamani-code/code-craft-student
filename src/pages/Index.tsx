@@ -6,6 +6,7 @@ import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
 import AuthModal from '@/components/AuthModal';
+import Dashboard from '@/components/Dashboard';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
@@ -78,14 +79,21 @@ const Index = () => {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <HeroSection
-        isLoggedIn={isLoggedIn}
-        userName={userName}
-        onGetStarted={openSignUpModal}
-      />
-
-      <HowItWorksSection />
-      <TestimonialSection />
+      {isLoggedIn ? (
+        <div className="pt-20">
+          <Dashboard userName={userName} />
+        </div>
+      ) : (
+        <>
+          <HeroSection
+            isLoggedIn={isLoggedIn}
+            userName={userName}
+            onGetStarted={openSignUpModal}
+          />
+          <HowItWorksSection />
+          <TestimonialSection />
+        </>
+      )}
 
       <AuthModal
         isOpen={isAuthModalOpen}
