@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Rocket, Compass, BookOpen, ArrowLeft } from 'lucide-react';
+import FlowLayout from './FlowLayout';
 
 interface DashboardProps {
   userName: string;
@@ -38,44 +39,51 @@ const Dashboard: React.FC<DashboardProps> = ({ userName }) => {
     }
   ];
 
-  const renderSectionContent = (sectionId: SectionType) => {
-    const sectionTitles = {
-      start: 'Beginner Path',
-      explore: 'Intermediate Journey',
-      enroll: 'Advanced Enrollment'
+  const getFlowItems = (sectionId: SectionType) => {
+    const flowData = {
+      start: [
+        { id: 'basics', title: 'Programming Basics', description: 'Introduction to programming concepts' },
+        { id: 'variables', title: 'Variables', description: 'Understanding data storage' },
+        { id: 'data-types', title: 'Data Types', description: 'Different types of data in programming' },
+        { id: 'control-flow', title: 'Control Flow', description: 'Loops and conditional statements' },
+        { id: 'functions', title: 'Functions', description: 'Reusable blocks of code' }
+      ],
+      explore: [
+        { id: 'oop', title: 'Object-Oriented Programming', description: 'Classes, objects, and inheritance' },
+        { id: 'algorithms', title: 'Algorithms', description: 'Problem-solving techniques' },
+        { id: 'data-structures', title: 'Data Structures', description: 'Arrays, lists, trees, and more' },
+        { id: 'debugging', title: 'Debugging', description: 'Finding and fixing code errors' },
+        { id: 'testing', title: 'Testing', description: 'Writing and running tests' }
+      ],
+      enroll: [
+        { id: 'frameworks', title: 'Frameworks & Libraries', description: 'Popular development frameworks' },
+        { id: 'databases', title: 'Database Management', description: 'Storing and retrieving data' },
+        { id: 'apis', title: 'API Development', description: 'Building and consuming APIs' },
+        { id: 'deployment', title: 'Deployment', description: 'Publishing your applications' },
+        { id: 'best-practices', title: 'Best Practices', description: 'Industry standards and patterns' }
+      ]
     };
+    
+    return flowData[sectionId!] || [];
+  };
 
-    return (
-      <div className="animate-fade-in">
-        <div className="flex items-center mb-8">
-          <button
-            onClick={() => setActiveSection(null)}
-            className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors duration-200 mr-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Dashboard</span>
-          </button>
-        </div>
-        
-        <div className="bg-white rounded-2xl p-12 shadow-xl border border-gray-200">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            {sectionTitles[sectionId!]}
-          </h2>
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-xl">
-            <p className="text-xl text-gray-600 mb-4">Coming Soon!</p>
-            <p className="text-gray-500">
-              This section is under development. We're working hard to bring you amazing content and features.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
+  const getSectionTitle = (sectionId: SectionType) => {
+    const titles = {
+      start: 'Beginner Learning Path',
+      explore: 'Intermediate Journey',
+      enroll: 'Advanced Enrollment Path'
+    };
+    return titles[sectionId!] || '';
   };
 
   if (activeSection) {
     return (
       <div className="container mx-auto px-6 py-8">
-        {renderSectionContent(activeSection)}
+        <FlowLayout
+          sectionTitle={getSectionTitle(activeSection)}
+          items={getFlowItems(activeSection)}
+          onBack={() => setActiveSection(null)}
+        />
       </div>
     );
   }
