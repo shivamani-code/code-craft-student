@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Book, Map, Award, FileText, Users, X, Home, Rocket, Compass, BookOpen, MessageSquare } from 'lucide-react';
+import { Book, Map, Award, FileText, Users, X, Home, Rocket, Compass, BookOpen, MessageSquare, Settings, LogOut } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -10,18 +10,17 @@ interface SidebarProps {
   onSignUp: () => void;
   onNavigate?: (section: string) => void;
   activeSection?: string;
+  onLogout?: () => void;
+  onSettings?: () => void;
 }
 
 const loggedInMenuItems = [
   { icon: Home, label: 'Home', section: 'home' },
-  { icon: Rocket, label: 'Start', section: 'start' },
-  { icon: Compass, label: 'Explore', section: 'explore' },
-  { icon: BookOpen, label: 'Go', section: 'go' },
+  { icon: Rocket, label: 'Start', section: 'home' },
+  { icon: Compass, label: 'Explore', section: 'home' },
+  { icon: BookOpen, label: 'Go', section: 'home' },
   { icon: MessageSquare, label: 'Feedback', section: 'feedback' },
   { icon: Book, label: 'Courses', section: 'courses' },
-  { icon: Map, label: 'Roadmaps', section: 'roadmaps' },
-  { icon: Award, label: 'Skills', section: 'skills' },
-  { icon: FileText, label: 'Guides', section: 'guides' },
   { icon: Users, label: 'Mentor Support', section: 'mentors' },
   { icon: Users, label: 'Community', section: 'community' },
 ];
@@ -40,7 +39,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   onLogin, 
   onSignUp, 
   onNavigate,
-  activeSection = 'home'
+  activeSection = 'home',
+  onLogout,
+  onSettings
 }) => {
   const menuItems = isLoggedIn ? loggedInMenuItems : loggedOutMenuItems;
 
@@ -97,6 +98,34 @@ const Sidebar: React.FC<SidebarProps> = ({
               </button>
             ))}
           </nav>
+
+          {/* Settings and Logout for logged in users */}
+          {isLoggedIn && (
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    if (onSettings) onSettings();
+                    onClose();
+                  }}
+                  className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-all duration-200"
+                >
+                  <Settings className="w-5 h-5" />
+                  <span className="font-medium">Settings</span>
+                </button>
+                <button
+                  onClick={() => {
+                    if (onLogout) onLogout();
+                    onClose();
+                  }}
+                  className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all duration-200"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span className="font-medium">Sign Out</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Login/Signup buttons for non-logged in users */}
           {!isLoggedIn && (

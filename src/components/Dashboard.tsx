@@ -42,25 +42,25 @@ const Dashboard: React.FC<DashboardProps> = ({ userName }) => {
   const getFlowItems = (sectionId: SectionType) => {
     const flowData = {
       start: [
-        { id: 'basics', title: 'Programming Basics', description: 'Introduction to programming concepts' },
-        { id: 'variables', title: 'Variables', description: 'Understanding data storage' },
-        { id: 'data-types', title: 'Data Types', description: 'Different types of data in programming' },
-        { id: 'control-flow', title: 'Control Flow', description: 'Loops and conditional statements' },
-        { id: 'functions', title: 'Functions', description: 'Reusable blocks of code' }
+        { id: 'free-courses', title: 'Free Courses', description: 'Access free programming courses' },
+        { id: 'paid-courses', title: 'Paid Courses', description: 'Premium structured learning paths' },
+        { id: 'resources', title: 'Resources', description: 'Additional learning materials' },
+        { id: 'notes', title: 'Notes', description: 'Study notes and documentation' },
+        { id: 'practice-problems', title: 'Practice Problems', description: 'Coding challenges and exercises' }
       ],
       explore: [
-        { id: 'oop', title: 'Object-Oriented Programming', description: 'Classes, objects, and inheritance' },
-        { id: 'algorithms', title: 'Algorithms', description: 'Problem-solving techniques' },
-        { id: 'data-structures', title: 'Data Structures', description: 'Arrays, lists, trees, and more' },
-        { id: 'debugging', title: 'Debugging', description: 'Finding and fixing code errors' },
-        { id: 'testing', title: 'Testing', description: 'Writing and running tests' }
+        { id: 'free-courses', title: 'Free Courses', description: 'Intermediate free courses' },
+        { id: 'paid-courses', title: 'Paid Courses', description: 'Advanced paid courses' },
+        { id: 'resources', title: 'Resources', description: 'Intermediate resources and tools' },
+        { id: 'notes', title: 'Notes', description: 'Advanced study materials' },
+        { id: 'practice-problems', title: 'Practice Problems', description: 'Complex coding challenges' }
       ],
       enroll: [
-        { id: 'frameworks', title: 'Frameworks & Libraries', description: 'Popular development frameworks' },
-        { id: 'databases', title: 'Database Management', description: 'Storing and retrieving data' },
-        { id: 'apis', title: 'API Development', description: 'Building and consuming APIs' },
-        { id: 'deployment', title: 'Deployment', description: 'Publishing your applications' },
-        { id: 'best-practices', title: 'Best Practices', description: 'Industry standards and patterns' }
+        { id: 'free-courses', title: 'Free Courses', description: 'Advanced free courses' },
+        { id: 'paid-courses', title: 'Paid Courses', description: 'Professional certification courses' },
+        { id: 'resources', title: 'Resources', description: 'Professional development resources' },
+        { id: 'notes', title: 'Notes', description: 'Expert-level documentation' },
+        { id: 'practice-problems', title: 'Practice Problems', description: 'Industry-level challenges' }
       ]
     };
     

@@ -53,6 +53,14 @@ const Index = () => {
     });
   };
 
+  const handleSettings = () => {
+    setActiveSection('settings');
+    toast({
+      title: "Settings",
+      description: "Settings page opened.",
+    });
+  };
+
   const openLoginModal = () => {
     setAuthMode('login');
     setIsAuthModalOpen(true);
@@ -90,79 +98,6 @@ const Index = () => {
     switch (activeSection) {
       case 'home':
         return <Dashboard userName={userName} />;
-      case 'start':
-        return (
-          <div className="pt-20 px-6 py-12">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl font-bold text-gray-900 mb-6">Start Learning</h1>
-              <p className="text-lg text-gray-600 mb-8">Begin your coding journey with our structured learning paths.</p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Web Development</h3>
-                  <p className="text-gray-600 mb-4">Learn HTML, CSS, and JavaScript from scratch.</p>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Start Course</button>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Python Basics</h3>
-                  <p className="text-gray-600 mb-4">Master the fundamentals of Python programming.</p>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Start Course</button>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Data Structures</h3>
-                  <p className="text-gray-600 mb-4">Understand arrays, lists, stacks, and queues.</p>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Start Course</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      case 'explore':
-        return (
-          <div className="pt-20 px-6 py-12">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl font-bold text-gray-900 mb-6">Explore Topics</h1>
-              <p className="text-lg text-gray-600 mb-8">Discover new programming concepts and technologies.</p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Machine Learning</h3>
-                  <p className="text-gray-600 mb-4">Dive into AI and ML algorithms.</p>
-                  <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Explore</button>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Mobile Development</h3>
-                  <p className="text-gray-600 mb-4">Build apps for iOS and Android.</p>
-                  <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Explore</button>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Cloud Computing</h3>
-                  <p className="text-gray-600 mb-4">Learn AWS, Azure, and Google Cloud.</p>
-                  <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Explore</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      case 'go':
-        return (
-          <div className="pt-20 px-6 py-12">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl font-bold text-gray-900 mb-6">Go & Practice</h1>
-              <p className="text-lg text-gray-600 mb-8">Practice your coding skills with interactive challenges.</p>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Coding Challenges</h3>
-                  <p className="text-gray-600 mb-4">Solve problems and improve your skills.</p>
-                  <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Start Challenge</button>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md border">
-                  <h3 className="text-xl font-semibold mb-3">Project Builder</h3>
-                  <p className="text-gray-600 mb-4">Build real-world projects step by step.</p>
-                  <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Build Project</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
       case 'feedback':
         return (
           <div className="pt-20 px-6 py-12">
@@ -206,6 +141,30 @@ const Index = () => {
             </div>
           </div>
         );
+      case 'settings':
+        return (
+          <div className="pt-20 px-6 py-12">
+            <div className="max-w-2xl mx-auto">
+              <h1 className="text-4xl font-bold text-gray-900 mb-6">Settings</h1>
+              <div className="bg-white p-6 rounded-lg shadow-md border">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Account Settings</h3>
+                    <p className="text-gray-600">Manage your account preferences and profile information.</p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Notification Settings</h3>
+                    <p className="text-gray-600">Configure how you receive notifications.</p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Privacy Settings</h3>
+                    <p className="text-gray-600">Control your privacy and data sharing preferences.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
       default:
         return <Dashboard userName={userName} />;
     }
@@ -230,6 +189,8 @@ const Index = () => {
         onSignUp={openSignUpModal}
         onNavigate={handleNavigation}
         activeSection={activeSection}
+        onLogout={handleLogout}
+        onSettings={handleSettings}
       />
 
       {renderContent()}
