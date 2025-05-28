@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Menu, User, Settings, LogOut, Home, Rocket, Compass, BookOpen, MessageSquare } from 'lucide-react';
+import { Menu, User, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({
           </h1>
         </div>
 
-        {/* Right side - Navigation based on login status */}
+        {/* Right side - Login/Signup or User dropdown */}
         <div className="flex items-center space-x-4">
           {!isLoggedIn ? (
             // Before login: only Login and Sign Up
@@ -67,82 +67,29 @@ const Header: React.FC<HeaderProps> = ({
               </Button>
             </>
           ) : (
-            // After login: Navigation menu with all options
-            <div className="flex items-center space-x-2">
-              {/* Home button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-1 hover:bg-blue-50 transition-colors duration-200"
-              >
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Button>
-
-              {/* Start button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-1 hover:bg-green-50 transition-colors duration-200"
-              >
-                <Rocket className="w-4 h-4" />
-                <span>Start</span>
-              </Button>
-
-              {/* Explore button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-1 hover:bg-blue-50 transition-colors duration-200"
-              >
-                <Compass className="w-4 h-4" />
-                <span>Explore</span>
-              </Button>
-
-              {/* Go button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-1 hover:bg-purple-50 transition-colors duration-200"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>Go</span>
-              </Button>
-
-              {/* Feedback button */}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-1 hover:bg-gray-50 transition-colors duration-200"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Feedback</span>
-              </Button>
-
-              {/* User dropdown menu */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                    <User className="w-5 h-5 text-gray-600" />
-                    <span className="text-gray-700 font-medium">{userName}</span>
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 bg-white shadow-lg border border-gray-200">
-                  <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50">
-                    <Settings className="w-4 h-4" />
-                    <span>Settings</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem 
-                    onClick={onLogout}
-                    className="flex items-center space-x-2 cursor-pointer hover:bg-red-50 text-red-600"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Sign Out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            // After login: Only user dropdown
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                  <User className="w-5 h-5 text-gray-600" />
+                  <span className="text-gray-700 font-medium">{userName}</span>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 bg-white shadow-lg border border-gray-200">
+                <DropdownMenuItem className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50">
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  onClick={onLogout}
+                  className="flex items-center space-x-2 cursor-pointer hover:bg-red-50 text-red-600"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign Out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
         </div>
       </div>

@@ -77,6 +77,9 @@ const Index = () => {
       <Sidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
+        isLoggedIn={isLoggedIn}
+        onLogin={openLoginModal}
+        onSignUp={openSignUpModal}
       />
 
       {isLoggedIn ? (
