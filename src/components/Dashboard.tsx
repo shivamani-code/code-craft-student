@@ -1,16 +1,18 @@
 
 import React, { useState } from 'react';
 import { Rocket, Compass, BookOpen, ArrowLeft } from 'lucide-react';
-import FlowLayout from './FlowLayout';
+import SubSectionLayout from './SubSectionLayout';
 
 interface DashboardProps {
   userName: string;
 }
 
 type SectionType = 'start' | 'explore' | 'enroll' | null;
+type SubSectionType = 'free-courses' | 'paid-courses' | 'resources' | 'notes' | 'practice-problems' | null;
 
 const Dashboard: React.FC<DashboardProps> = ({ userName }) => {
   const [activeSection, setActiveSection] = useState<SectionType>(null);
+  const [activeSubSection, setActiveSubSection] = useState<SubSectionType>(null);
 
   const sections = [
     {
@@ -39,55 +41,96 @@ const Dashboard: React.FC<DashboardProps> = ({ userName }) => {
     }
   ];
 
-  const getFlowItems = (sectionId: SectionType) => {
-    const flowData = {
+  const getSubSections = (sectionId: SectionType) => {
+    const subSections = {
       start: [
-        { id: 'free-courses', title: 'Free Courses', description: 'Access free programming courses' },
-        { id: 'paid-courses', title: 'Paid Courses', description: 'Premium structured learning paths' },
-        { id: 'resources', title: 'Resources', description: 'Additional learning materials' },
-        { id: 'notes', title: 'Notes', description: 'Study notes and documentation' },
-        { id: 'practice-problems', title: 'Practice Problems', description: 'Coding challenges and exercises' }
+        { id: 'free-courses', title: 'Free Courses', description: 'Access free programming courses for beginners' },
+        { id: 'notes', title: 'Notes', description: 'Study notes and documentation for beginners' },
+        { id: 'practice-problems', title: 'Practice Problems', description: 'Basic coding challenges and exercises' }
       ],
       explore: [
-        { id: 'free-courses', title: 'Free Courses', description: 'Intermediate free courses' },
-        { id: 'paid-courses', title: 'Paid Courses', description: 'Advanced paid courses' },
+        { id: 'paid-courses', title: 'Paid Courses', description: 'Premium intermediate courses' },
         { id: 'resources', title: 'Resources', description: 'Intermediate resources and tools' },
-        { id: 'notes', title: 'Notes', description: 'Advanced study materials' },
-        { id: 'practice-problems', title: 'Practice Problems', description: 'Complex coding challenges' }
+        { id: 'practice-problems', title: 'Practice Problems', description: 'Intermediate coding challenges' }
       ],
       enroll: [
         { id: 'free-courses', title: 'Free Courses', description: 'Advanced free courses' },
         { id: 'paid-courses', title: 'Paid Courses', description: 'Professional certification courses' },
-        { id: 'resources', title: 'Resources', description: 'Professional development resources' },
         { id: 'notes', title: 'Notes', description: 'Expert-level documentation' },
-        { id: 'practice-problems', title: 'Practice Problems', description: 'Industry-level challenges' }
+        { id: 'resources', title: 'Resources', description: 'Professional development resources' }
       ]
     };
     
-    return flowData[sectionId!] || [];
+    return subSections[sectionId!] || [];
   };
 
   const getSectionTitle = (sectionId: SectionType) => {
     const titles = {
-      start: 'Beginner Learning Path',
-      explore: 'Intermediate Journey',
-      enroll: 'Advanced Enrollment Path'
+      start: 'Start – Beginner Learning Path',
+      explore: 'Explore – Intermediate Journey',
+      enroll: 'Go – Advanced Enrollment Path'
     };
     return titles[sectionId!] || '';
   };
 
+  const getSubSectionTitle = (subSectionId: SubSectionType) => {
+    const titles = {
+      'free-courses': 'Free Courses',
+      'paid-courses': 'Paid Courses',
+      'resources': 'Resources',
+      'notes': 'Notes',
+      'practice-problems': 'Practice Problems'
+    };
+    return titles[subSectionId!] || '';
+  };
+
+  // Handle sub-section view (full page view for individual sub-sections)
+  if (activeSubSection) {
+    return (
+      <div className="container mx-auto px-6 py-8">
+        <div className="mb-6">
+          <button
+            onClick={() => setActiveSubSection(null)}
+            className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors duration-200"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            <span>Back to {getSectionTitle(activeSection)}</span>
+          </button>
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">
+            {getSubSectionTitle(activeSubSection)}
+          </h1>
+          <div className="bg-white rounded-lg shadow-md border p-8 min-h-96">
+            <p className="text-gray-600 text-lg mb-8">
+              Content for {getSubSectionTitle(activeSubSection)} will be added here.
+            </p>
+            {/* Blank content area for future implementation */}
+            <div className="bg-gray-50 rounded-lg p-8 min-h-64 flex items-center justify-center">
+              <p className="text-gray-500">Content coming soon...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle section view (showing sub-sections as cards)
   if (activeSection) {
     return (
       <div className="container mx-auto px-6 py-8">
-        <FlowLayout
+        <SubSectionLayout
           sectionTitle={getSectionTitle(activeSection)}
-          items={getFlowItems(activeSection)}
+          items={getSubSections(activeSection)}
           onBack={() => setActiveSection(null)}
+          onItemClick={(itemId) => setActiveSubSection(itemId as SubSectionType)}
         />
       </div>
     );
   }
 
+  // Main dashboard view
   return (
     <div className="container mx-auto px-6 py-8">
       {/* Welcome Message */}
