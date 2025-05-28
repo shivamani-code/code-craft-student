@@ -8,31 +8,48 @@ interface SidebarProps {
   isLoggedIn: boolean;
   onLogin: () => void;
   onSignUp: () => void;
+  onNavigate?: (section: string) => void;
+  activeSection?: string;
 }
 
 const loggedInMenuItems = [
-  { icon: Home, label: 'Home', href: '#home' },
-  { icon: Rocket, label: 'Start', href: '#start' },
-  { icon: Compass, label: 'Explore', href: '#explore' },
-  { icon: BookOpen, label: 'Go', href: '#go' },
-  { icon: MessageSquare, label: 'Feedback', href: '#feedback' },
-  { icon: Book, label: 'Courses', href: '#courses' },
-  { icon: Map, label: 'Roadmaps', href: '#roadmaps' },
-  { icon: Award, label: 'Skills', href: '#skills' },
-  { icon: FileText, label: 'Guides', href: '#guides' },
-  { icon: Users, label: 'Mentor Support', href: '#mentors' },
-  { icon: Users, label: 'Community', href: '#community' },
+  { icon: Home, label: 'Home', section: 'home' },
+  { icon: Rocket, label: 'Start', section: 'start' },
+  { icon: Compass, label: 'Explore', section: 'explore' },
+  { icon: BookOpen, label: 'Go', section: 'go' },
+  { icon: MessageSquare, label: 'Feedback', section: 'feedback' },
+  { icon: Book, label: 'Courses', section: 'courses' },
+  { icon: Map, label: 'Roadmaps', section: 'roadmaps' },
+  { icon: Award, label: 'Skills', section: 'skills' },
+  { icon: FileText, label: 'Guides', section: 'guides' },
+  { icon: Users, label: 'Mentor Support', section: 'mentors' },
+  { icon: Users, label: 'Community', section: 'community' },
 ];
 
 const loggedOutMenuItems = [
-  { icon: Home, label: 'Home', href: '#home' },
-  { icon: Book, label: 'About', href: '#about' },
-  { icon: FileText, label: 'Features', href: '#features' },
-  { icon: Users, label: 'Contact', href: '#contact' },
+  { icon: Home, label: 'Home', section: 'home' },
+  { icon: Book, label: 'About', section: 'about' },
+  { icon: FileText, label: 'Features', section: 'features' },
+  { icon: Users, label: 'Contact', section: 'contact' },
 ];
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, isLoggedIn, onLogin, onSignUp }) => {
+const Sidebar: React.FC<SidebarProps> = ({ 
+  isOpen, 
+  onClose, 
+  isLoggedIn, 
+  onLogin, 
+  onSignUp, 
+  onNavigate,
+  activeSection = 'home'
+}) => {
   const menuItems = isLoggedIn ? loggedInMenuItems : loggedOutMenuItems;
+
+  const handleItemClick = (section: string) => {
+    if (onNavigate) {
+      onNavigate(section);
+    }
+    onClose();
+  };
 
   return (
     <>
@@ -65,16 +82,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, isLoggedIn, onLogin,
           {/* Menu Items */}
           <nav className="space-y-2">
             {menuItems.map((item, index) => (
-              <a
+              <button
                 key={item.label}
-                href={item.href}
-                onClick={onClose}
-                className="flex items-center space-x-3 p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group"
+                onClick={() => handleItemClick(item.section)}
+                className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 group ${
+                  activeSection === item.section 
+                    ? 'bg-blue-100 text-blue-600' 
+                    : 'hover:bg-blue-50 hover:text-blue-600'
+                }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
-                <span className="font-medium">{item.label}</span>
-              </a>
+                <span className="font-medium text-left">{item.label}</span>
+              </button>
             ))}
           </nav>
 
