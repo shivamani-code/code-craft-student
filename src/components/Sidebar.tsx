@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Book, Award, FileText, Users, X, Home, MessageSquare, Settings, LogOut } from 'lucide-react';
+import { Book, Map, Award, FileText, Users, X, Home, Rocket, Compass, BookOpen, MessageSquare, Settings, LogOut } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -16,6 +16,9 @@ interface SidebarProps {
 
 const loggedInMenuItems = [
   { icon: Home, label: 'Home', section: 'home' },
+  { icon: Rocket, label: 'Start', section: 'home' },
+  { icon: Compass, label: 'Explore', section: 'home' },
+  { icon: BookOpen, label: 'Go', section: 'home' },
   { icon: MessageSquare, label: 'Feedback', section: 'feedback' },
   { icon: Book, label: 'Courses', section: 'courses' },
   { icon: Users, label: 'Mentor Support', section: 'mentors' },
